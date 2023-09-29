@@ -46,6 +46,7 @@ const Sidebar = () => {
         <>
             <div className="w-56 h-screen bg-white drop-shadow-xl z-10">
                 <div className='p-6 font-first font-bold'>
+                    <h2>Admin</h2>
                 </div>
                 {menus.map((item, index) => (
                     <div key={index}>

@@ -7,16 +7,12 @@ import db from "./config/config.js"
 dotenv.config()
 const app = express()
 
-(async() => {
-    await db.sync()
-})
-
-app.get('/', function (req, res) {
-    res.send('OK');
+// app.get('/api', function (req, res) {
+//     res.send();
  
-    // Before res.send()
-    console.log(res.headersSent);
-});
+//     // Before res.send()
+//     // console.log(res.headersSent);
+// });
 
 app.use(express.json())
 app.use(
@@ -26,7 +22,7 @@ app.use(
     })
 )
 app.use(express.json())
-app.use(router)
-app.use(router)
+app.use(UserRoute)
+app.use(TicketRoute)
 
 app.listen (process.env.PORT, () => console.log(`Server Berjalan ...`));

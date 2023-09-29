@@ -1,19 +1,19 @@
 import { Sequelize } from "sequelize";
 import db from "../config/config.js";
 
-const {DataTypes} = Sequelize;
+const { DataTypes } = Sequelize;
 
 const Users = db.define(
     "users",
     {
-        uuid: {
-            type: DataTypes.STRING,
-            defaultValue: DataTypes.UUIDV4,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            },
-        },
+        // uuid: {
+        //     type: DataTypes.STRING,
+        //     defaultValue: DataTypes.UUIDV4,
+        //     allowNull: false,
+        //     validate: {
+        //         notEmpty: true,
+        //     },
+        // },
         nama: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -34,7 +34,9 @@ const Users = db.define(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: ["^[a-z]+$", "i"],
+                // isLowercase: true, // checks for lowercase
+                // isUppercase: true,
+                min: 8,
                 notEmpty: true,
             },
         },
@@ -42,6 +44,7 @@ const Users = db.define(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
+                isIn: [["admin", "users", "operator"]],
                 notEmpty: true,
             },
         },
@@ -50,5 +53,9 @@ const Users = db.define(
         freezeTableName: true,
     }
 );
+
+(async () => {
+    await db.sync();
+})();
 
 export default Users;

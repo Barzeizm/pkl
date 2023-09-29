@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar'
 const Report = () => {
   return (
     <>
-        <Header />
+        <Header title="Report"/>
         <Sidebar />
     </>
   )

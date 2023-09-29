@@ -1,13 +1,17 @@
 import Ticket from "../models/TicketsModel.js";
+import Users from "../models/UserModel.js";
 
-export const getAllTickets = async(res) => {
-    try{
-        const response = await Ticket.findAll();
+export const getAllTickets = async (req, res) => {
+    try {
+        const response = await Ticket.findAll({
+            attributes: ["id", "title", "description"],
+            include: [{ model: Users, attributes: ["nama", "email"], required: true }],
+        });
         res.status(200).json(response);
-    } catch (error){
-        res.status(500).json({msg : error.message})
+    } catch (error) {
+        console.log(error.message);
     }
-}
+};
 // export const getTicketById = (req,res) => {
 
 // }

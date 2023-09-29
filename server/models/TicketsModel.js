@@ -7,13 +7,6 @@ const DataTypes = Sequelize;
 const Ticket = db.define(
     "tickets",
     {
-        ticketid: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            },
-        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -22,13 +15,6 @@ const Ticket = db.define(
             },
         },
         description: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            },
-        },
-        role: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -59,10 +45,14 @@ const Ticket = db.define(
     },
     {
         freezeTableName: true,
-    }
-);
+    },
+    );
+    
+Users.hasMany(Ticket, { foreignKey: "userId" });
+Ticket.belongsTo(Users);
 
-Users.hasMany(Ticket);
-Ticket.belongsTo(Users, { foreignKey: "userId" });
+(async()=>{
+    await db.sync();
+})();
 
 export default Ticket;
